@@ -7,7 +7,7 @@ import uuid
 
 #import ldap
 #import numpy as np
-import pandas as pd
+#import pandas as pd
 from django.core import serializers
 from django.db import connection, connections
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
