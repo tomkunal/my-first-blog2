@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title id='Description'>jqxPopover example</title>
+    <link rel="stylesheet" href="http://hqswqadb02/CommonFiles/jqwidgets/styles/jqx.base.css" type="text/css" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 minimum-scale=1" />	
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    
+
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxpopover.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxbuttons.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxinput.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxscrollbar.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // prepare the data
+            
+            var movies = $("#movies");
+            var input =  $("#input").jqxInput({ placeHolder: "Enter Submission Name", height: 25, width: 200, minLength: 1 ,valueMember:"sbvj"});
+            $("#input").val("dbsvjb");
+            movies.append(input);
+            
+            $("#button").jqxButton();
+            $("#popover").jqxPopover({offset: {left: 0, top:0}, arrowOffsetValue:20, isModal:true, title: "Submission Group Name", showCloseButton: true, selector: $("#button") });
+            $("#header").addClass('jqx-widget-header');
+            $('#popover').jqxPopover('open'); 
+           
+        });
+    </script>
+</head>
+<body>
+    <div id="popover">
+        <div id="movies">
+            <input type="text" id="input"/>
+        </div>
+    </div>
+    <div  id="header">
+        <button style="float: right; margin-top:450px; margin-right:200px ; padding: 8px 12px; border-radius: 6px;"
+        class="btn btn-primary-nvidia btn-lg" id="button">View Employees</button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,647 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head runat="server">
+  {% load static %}
+  <title>Template View</title>
+
+  <link rel="shortcut icon" type="image/png" href="{% static "GetData\img\favicon.ico" %}" />
+  <link rel="stylesheet" href="http://hqswqadb02/CommonFiles/jqwidgets/styles/jqx.base.css" type="text/css" />
+  <link rel="stylesheet" href="http://hqswqadb02/CommonFiles/jqwidgets/styles/jqx.light.css" type="text/css" />
+  <link rel="stylesheet" href="http://hqswqadb02/CommonFiles/jqwidgets/styles/jqx.metro.css" type="text/css" />
+  <link rel="stylesheet" href="http://hqswqadb02/CommonFiles/jqwidgets/styles/jqx.bootstrap.css" type="text/css" />
+  <link rel="stylesheet" href="http://hqswqadb02/CommonFiles/jqwidgets/styles/jqx.energyblue.css" type="text/css" />
+  <link rel="stylesheet" href="http://hqswqadb02/CommonFiles/jqwidgets/styles/jqx.darkblue.css" type="text/css" />
+  <link rel="stylesheet" href="{% static "GetData\css\nvidiatheme.css" %}" type="text/css" />
+  <link rel="stylesheet" href="{% static "GetData\css\general.css" %}" type="text/css" />
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/JavaScript/jquery-2.1.1.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxcore.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxdata.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxbuttons.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxscrollbar.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxpanel.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxtree.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxdatatable.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxtreegrid.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxlistbox.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxdropdownbutton.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxdropdownlist.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxmenu.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.pager.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.sort.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.filter.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.columnsresize.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.selection.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxcheckbox.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxexpander.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxbuttongroup.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxwindow.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.edit.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxloader.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxprogressbar.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxinput.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles//jqwidgets/jqxdata.export.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.columnsresize.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.export.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles//jqwidgets/jqxtextarea.js"></script>
+
+  <script href="{% static 'GetData/done1.png' %}"></script>
+
+  {% csrf_token %}
+  <script type="text/javascript">
+    var FolderData;
+    var serverName = "{{request.scheme}}://{{request.get_host}}";
+    $(document).ready(function () {
+
+      $("#jqxLoader").jqxLoader({ theme: 'nvidiatheme', width: 200, height: 150, autoOpen: true });
+      $('#jqxLoader').jqxLoader('open');
+      $("p").hide();
+      // Loading necesaary folder
+      var flag = "true";
+      loadTemplateView(flag);
+
+
+      $(document).on("click", "#logout", function (event) {
+
+        sessionStorage.clear();
+        window.open(serverName + "/GetData/HomePage/", "_self")
+
+      });
+
+      //Getting name of feature
+      $("#knowFeature").click(function () {
+        var featurePart = $('#featurepart').val();
+        $.ajax({
+          url: '/GetData/knowFeature',
+          data: {
+            'featurePart': featurePart
+          },
+          traditional: true,
+          dataType: 'json',
+          success: function (data) {
+            returnjson = data;
+            $('#featureID').val(data);
+          }
+
+        });
+
+      });
+
+      // Loading Grid for the Template
+      function loadtemplatejq(data) {
+        var source =
+        {
+          datatype: "json",
+          datafields: [
+            { name: 'IssueId', type: 'string' },
+            { name: 'TemplateFolderpath', type: 'string' },
+            { name: 'issuetitle', type: 'string' },
+            { name: 'fieldint10', type: 'string' },
+            { name: 'fieldvarcharlong12', type: 'string' },
+            { name: 'jobid', type: 'string' },
+            { name: 'IsActive', type: 'string' }
+          ],
+          localdata: data
+        };
+        var dataAdapter = new $.jqx.dataAdapter(source);
+        $("#grid").jqxGrid(
+          {
+            width: '100%',
+            autorowheight: true,
+            autoheight: true,
+
+            theme: 'nvidiatheme',
+            keyboardnavigation: false,
+            sortable: true,
+            columnsresize: false,
+            altrows: true,
+            filterable: true,
+            autoshowfiltericon: true,
+            selectionmode: 'checkbox',
+            //showfilterrow: true,
+            pageable: true,
+            editable: true,
+            enabletooltips: true,
+            pagermode: 'simple',
+            source: dataAdapter,
+            columnsresize: true,
+            columns: [
+              { text: 'Template Id', datafield: 'IssueId', editable: false, width: '10%' },
+              { text: 'Title', datafield: 'issuetitle', editable: false, width: '35%', exportable: false },
+              { text: 'Feature sequence', datafield: 'fieldvarcharlong12', editable: false, width: '10%' },
+              { text: 'TemplateFolderpath', datafield: 'TemplateFolderpath', editable: false, width: '35%' },
+              { text: 'IsActive', datafield: 'IsActive', filtertype: 'checkedlist', editable: false, width: '10%', exportable: false }
+            ]
+          });
+      }
+
+      $("#templatePart").on('change', function () {
+        // your code here
+        var templePart = $('#templatePart').val();
+        if (templePart.indexOf(" ") >= 0) {
+          templePart = templePart.replace(" ", ",");
+          $('#templatePart').val(templePart);
+        }
+        else if (templePart.indexOf("\n") >= 0) {
+          templePart = templePart.replace(/\n/g, ",");
+          $('#templatePart').val(templePart);
+        }
+        else if (templePart.indexOf(",") >= 0) {
+          templePart = templePart.replace(",", ",");
+          $('#templatePart').val(templePart); 
+        }
+        if (templePart.charAt(templePart.length-1) == ",")
+        {
+          templePart = templePart.slice(0, -1);
+          $('#templatePart').val(templePart); 
+        }
+        // else {
+        //   var modal = $('#alertModal');
+        //   modal.find('.modal-body p').text("Please use proper format");
+        //   $('#templatePart').val(" ");
+        //   $('#alertModal').modal("show");
+        // }
+      });
+      //generating  data is getting required templates
+      function generateData(projectId, folderIds, featurePart, whattoDo) {
+        //changetextbox();
+        var templatePart = $('#templatePart').val();
+        if (templatePart == "" )
+        {
+          templatePart = '-1';
+        }
+        if (sessionStorage["lsttemp"] != undefined) {
+          templatePart = sessionStorage["lsttemp"] + "," + templatePart;;
+        }
+        var returnjson;
+        $.ajax({
+          url: '/GetData/loadTemplate',
+          data: {
+            'templatePart': templatePart, 'folderIds': folderIds, 'projectId': projectId, 'featurePart': featurePart, 'whattoDo': whattoDo
+          },
+          traditional: true,
+          contentType: "application/json; charset=utf-8",
+          dataType: 'json',
+          success: function (data) {
+            console.log("in success");
+            $('#jqxLoader').jqxLoader('close');
+            console.log(data);
+            returnjson = data;
+            try {
+              if (data == "") {
+                // clear the grid
+                $("#grid").jqxGrid('clear');
+
+                // add empty row
+                $("#grid").jqxGrid('addrow', 0, {});
+
+              }
+
+              else {
+                data = JSON.parse(data);
+                loadtemplatejq(data);
+              }
+            }
+
+            catch (err) {
+              $("#grid").jqxGrid('clear');
+
+              // add empty row
+              $("#grid").jqxGrid('addrow', 0, {});
+              console.log("Error: " + err + ".");
+            }
+
+          },
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            $('#jqxLoader').jqxLoader('close');
+            console.log("Status: " + textStatus);
+            console.log("Error: " + errorThrown);
+          }
+
+        });
+        return returnjson;
+
+      }
+
+      function changetextbox() {
+        var templePart = $('#templatePart').val();
+        if (templePart.indexOf(" ") >= 0) {
+          templePart = templePart.replace(" ", ",");
+          $('#templatePart').val(templePart);
+        }
+        else if (templePart.indexOf("\n") >= 0) {
+          templePart = templePart.replace(/\n/g, ",");
+          $('#templatePart').val(templePart);
+        }
+        else if (templePart.indexOf("\n") >= 0) {
+          templePart = templePart.replace(",", ",");
+          $('#templatePart').val(templePart); 
+        }
+        else if (templePart.charAt(str.length-1) == ",")
+        {
+          templePart = templePart.slice(0, -1);
+          $('#templatePart').val(templePart); 
+        }
+        // else {
+        //   var modal = $('#alertModal');
+        //   modal.find('.modal-body p').text("Please use proper format");
+        //   $('#templatePart').val(" ");
+        //   $('#alertModal').modal("show");
+        // }
+
+      }
+
+      //Calling function for Loadtree
+      function loadTemplateView(flag) {
+
+        var FolderData = $.ajax({
+          url: '/GetData/LoadTree',
+          data: {
+            'refreshdata': flag
+          },
+          traditional: true,
+          contentType: "application/json; charset=utf-8",
+          type: 'GET',
+          dataType: 'json',
+          success: function (data) {
+            FolderData = data;
+            LoadTree(FolderData);
+
+            $("p").show();
+            $('#jqxLoader').jqxLoader('close');
+            console.log(FolderData);
+          }
+        });
+      }
+
+      // Loading the Tree
+      function LoadTree(FolderData) {
+
+        var source = {
+          dataType: "json",
+          datafields: [
+            { name: 'parentid' },
+            { name: 'folderid' },
+            { name: 'foldertitle' },
+
+          ],
+          id: 'folderid',
+          hierarchy:
+          {
+            keyDataField: { name: 'folderid' },
+            parentDataField: { name: 'parentid' }
+          },
+
+          localData: FolderData
+        }
+        var dataAdapter = new $.jqx.dataAdapter(source);
+
+        $("#jqxTemplateTree").jqxTreeGrid({
+          filterable: true,
+          filterMode: 'simple',
+          showStatusBar: true,
+
+          // reload grid data.
+          renderStatusBar: function (toolbar) {
+            // appends buttons to the status bar.
+            var container = $("<div style='overflow: hidden; position: relative; margin: 5px;'></div>");
+            var addButton = $("<div style='float: left; margin-left: 5px;'><span style='margin-left: 4px; position: relative; top: -3px;'>Done</span></div>");
+            var reloadButton = $("<div style='float: left; margin-left: 5px;'><span style='margin-left: 4px; position: relative; top: -3px;'>Refresh Grid</span></div>");
+            container.append(addButton);
+            /*  container.append(refresh);*/
+            container.append(reloadButton);
+
+            toolbar.append(container);
+            addButton.jqxButton({ width: 60, height: 20 });
+            /* refresh.jqxButton({  width: 95, height: 20 });*/
+            reloadButton.jqxButton({ width: 95, height: 20 });
+
+            // add new row.
+            addButton.click(function (event) {
+              $('#jqxLoader').jqxLoader('open');
+              whattoDo = 0;
+
+              FolderData = 0;//$('#tbFeatureID').text();
+              var featurePart = 19;
+              var rows = $("#jqxTemplateTree").jqxTreeGrid('getCheckedRows');
+              var folderIds = [];
+              for (var i = 0; i < rows.length; i++) {
+                folderIds.push(rows[i].folderid);
+              }
+              // console.log(folderIds);
+
+              if (typeof folderIds != "undefined" && folderIds != null && folderIds.length != null && folderIds.length > 0)
+                generateData(1072, folderIds, featurePart, whattoDo);
+              else if($('#templatePart').val() != "" || sessionStorage["lsttemp"] != undefined)
+              {
+                folderIds = "-1";
+                generateData(1072, folderIds, featurePart, whattoDo);
+              }
+              else {
+                $('#jqxLoader').jqxLoader('close');
+
+                var modal = $('#alertModal');
+                modal.find('.modal-body p').text("Please Select atleast one folder");
+
+                $('#alertModal').modal("show");
+
+              }
+            });
+            // delete selected row.
+
+            // reload grid data.
+
+            reloadButton.click(function (event) {
+              loadTemplateView("true");
+              $("#grid").jqxGrid('clear');
+            });
+
+          },
+
+          width: '350px',
+          height: '500px',
+          source: dataAdapter,
+          sortable: true,
+          showHeader: false,
+          hierarchicalCheckboxes: true,
+          checkboxes: true,
+          theme: 'nvidiatheme',
+          //selectionmode: 'checkbox',
+          columns: [
+            { text: 'Folder', dataField: 'foldertitle', width: '100%', showHeader: false }
+          ]
+        });
+        //
+        $("#deleteFeature").on('click',function(event) {
+          var selectedrowindexes = $("#grid").jqxGrid('getselectedrowindexes');
+          var rowscount = $("#grid").jqxGrid('getdatainformation').rowscount;
+          while (selectedrowindexes.length > 0) {
+            var selectedrowindex = selectedrowindexes[selectedrowindexes.length - 1];
+            if (selectedrowindex > -1 && selectedrowindex < rowscount) {
+              var id = $("#grid").jqxGrid('getrowid', selectedrowindex);
+              job = $('#grid').jqxGrid('getrowdata', id);
+              $("#grid").jqxGrid('deleterow', id);
+                      
+            }
+          }
+        });
+
+
+
+        $("#removeFeature").on('click', function (event) {
+          whattoDo = 1;
+          $('#jqxLoader').jqxLoader('open');
+          //    var  featurePart = 52;
+          var featurePart = $('#featurepart').val();
+          var rows = $("#jqxTemplateTree").jqxTreeGrid('getCheckedRows');
+          var folderIds = [];
+          for (var i = 0; i < rows.length; i++) {
+            folderIds.push(rows[i].folderid);
+          }
+
+          console.log(folderIds);
+          debugger
+          generateData(1072, folderIds, featurePart, whattoDo);
+        })
+
+        $("#onlyThisFeature").on('click', function (event) {
+          whattoDo = -1; // all the sequence containg this feature would work
+          $('#jqxLoader').jqxLoader('open');
+          var featurePart = $('#featurepart').val();
+          var rows = $("#jqxTemplateTree").jqxTreeGrid('getCheckedRows');
+          var folderIds = [];
+          for (var i = 0; i < rows.length; i++) {
+            folderIds.push(rows[i].folderid);
+          }
+
+          console.log(folderIds);
+          debugger
+          generateData(1072, folderIds, featurePart, whattoDo);
+        })
+        //
+
+      }
+
+      $("#reloadTree").click(function () {
+
+        var result = confirm("Do you want to refresh Tree from DB , It will take 2 min");
+
+        if (result) {
+          console.log(result);
+          $('#jqxLoader').jqxLoader('open');
+
+          loadTemplateView("false");
+        }
+      });
+
+
+      $("#insertDB").click(function () {
+
+
+        var sel = $('#grid').jqxGrid('selectedrowindexes');
+
+        if (sel.length == 0) {
+          var modal = $('#alertModal');
+          modal.find('.modal-body p').text("Select Atleast one Template");
+          $('#alertModal').modal("show");
+
+        }
+        else {
+          var arr = new Array();
+          $('#jqxLoader').jqxLoader('open');
+          for (u in sel) {
+            arr[u] = $('#grid').jqxGrid('getrowdata', sel[u]);
+          }
+          var data = $('#grid').jqxGrid('exportdata', 'json', null, true, arr);
+
+          inputdata = data
+          $.ajax({
+            url: '/GetData/BulkUpdate',
+            data: {
+              'json_seq': inputdata, 'location': 'templateview'
+            },
+            dataType: 'json',
+            traditional: true,
+            contentType: 'application/x-www-form-urlencoded; charset=utf-8',  //Default
+            processData: true,
+            type: "POST",
+            success: function (data) {
+              console.log(data);
+
+              returnjson = data;
+
+              var modal = $('#alertModal');
+              modal.find('.modal-body p').text("Job submission successful");
+              $('#alertModal').modal("show");
+              console.log("SiriusJobStatus");
+              window.open(serverName + "/GetData/Result/", "_self");
+              $('#jqxLoader').jqxLoader('close');
+            }
+
+          });
+        }
+      });
+
+    });
+
+  </script>
+
+  <style>
+    .newspaper {
+      display: flex;
+    }
+
+    .setwidthHeight {
+      width: 18em;
+      height: 2em;
+    }
+
+    .setwidthHeightTextarea {
+      width: 16em;
+      height: 4em;
+    }
+  </style>
+
+
+</head>
+
+
+<body>
+  <form id="form1">
+    <div id="jqxLoader"></div>
+
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">
+            <img src="{% static "GetData\img\logo1.png" %}" alt="Logo" style="width:100px;">
+          </a>
+          <!-- <h9 class="navbar-brand" style="color: #76b900;">Spider Template View </h9> -->
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="{{request.scheme}}://{{request.get_host}}/GetData/HomePage/">Home</a>
+            </li>
+
+            <li><a href="{{request.scheme}}://{{request.get_host}}/GetData/SpiderService/">Configure Test</a></li>
+            <li><a href="{{request.scheme}}://{{request.get_host}}/GetData/Result/">Report</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+
+            <li><a href="#" id="logout"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="newspaper">
+      <table>
+        <tr>
+          <td>
+            <div id='jqxTemplateTree'></div>
+          </td>
+          <td>
+          </td>
+
+        </tr>
+      </table>
+
+      <div id="grid"></div>
+
+    </div>
+    <br />
+    <br />
+    <br />
+
+    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Message</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Modal body text goes here.</p>
+          </div>
+          <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <p>
+
+
+      <table style="width: 100%">
+        <tr>
+
+          <td>Enter Templates ( Ex: 1,2,3 or '1 \n 2') :<br /> <br />
+            <textarea id="templatePart" class="setwidthHeightTextarea"></textarea>
+            <br /> <br />
+
+          </td>
+
+          <td>Enter feature Id or Sequence :<br /> <br />
+            <textarea id="featurepart" class="setwidthHeightTextarea"></textarea>
+            <br /> <br />
+            <input type="button" value="Get Feature Name" id='knowFeature' class="btn btn-primary-nvidia"
+              style="width:250px ;" /><br />
+            <br />
+
+            <textarea id="featureID" class="setwidthHeightTextarea"></textarea>
+          </td>
+
+          <td>
+            <input type="button" id='deleteFeature' value="Deleting templates from grid"
+            class="btn btn-default-nvidia" style="width:250px ;" /><br /> <br />
+            <input type="button" id='onlyThisFeature' value="Filter templates with these feature"
+              class="btn btn-default-nvidia" style="width:250px ;" /><br /> <br />
+            <input type="button" id='removeFeature' value="Remove templates with these feature"
+              class="btn-nvidia btn-default-nvidia" style="width:250px ;" /><br /> <br />
+
+
+            <input type="button" value="Reload Tree From Database" id='reloadTree' class="btn btn-default-nvidia"
+              style="width:250px ;" /><br /> <br />
+          </td>
+          <td></td>
+          <td> </td>
+          <td> <br /> <br />
+
+          </td>
+
+
+          <td>
+            <br />
+            <input type="button" value="Trigger Tests" id='insertDB' class=" btn btn-primary-nvidia"
+              style="width:250px ;" />
+            <br />
+            <br /> <br />
+
+          </td>
+        </tr>
+      </table>
+
+      </p>
+    </div>
+
+
+  </form>
+</body>
+
+</html>

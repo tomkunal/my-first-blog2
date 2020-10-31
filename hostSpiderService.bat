@@ -1,0 +1,1 @@
+python manage.py runserver hqnvwbtd01:8000

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% load static %}
+  <title>Report</title>
+
+  <link rel="shortcut icon" type="image/png" href="{% static "GetData\img\favicon.ico" %}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="http://hqswqadb02/CommonFiles/jqwidgets/styles/jqx.office.css" type="text/css" />
+  <link rel="stylesheet" href="http://hqswqadb02/CommonFiles/jqwidgets/styles/jqx.metrodark.css" type="text/css" />
+  <link rel="stylesheet" href="http://hqswqadb02/CommonFiles/jqwidgets/styles/jqx.base.css" type="text/css" />
+  <link rel="stylesheet" href="http://hqswqadb02/CommonFiles/jqwidgets/styles/jqx.light.css" type="text/css" />
+  <link rel="stylesheet" href="http://hqswqadb02/CommonFiles/jqwidgets/styles/jqx.metro.css" type="text/css" />
+  <link rel="stylesheet" href="http://hqswqadb02/CommonFiles/jqwidgets/styles/jqx.bootstrap.css" type="text/css" />
+  <link rel="stylesheet" href="http://hqswqadb02/CommonFiles/jqwidgets/styles/jqx.darkblue.css" type="text/css" />
+
+  <link rel="stylesheet" href="{% static "GetData\css\nvidiatheme.css" %}" type="text/css" />
+  <link rel="stylesheet" href="{% static "GetData\css\general.css" %}" type="text/css" />
+  <!-- <script type="text/javascript" src="http://hqswqadb02/CommonFiles/JavaScript/jquery-2.1.1.min.js"></script> -->
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxcore.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxdata.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxbuttons.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxscrollbar.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxpanel.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxtree.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxdatatable.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxtreegrid.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxlistbox.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxdropdownbutton.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxdropdownlist.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxmenu.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.pager.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.sort.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.filter.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.columnsresize.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.selection.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxcheckbox.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxexpander.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxbuttongroup.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxwindow.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.edit.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxloader.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxprogressbar.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxinput.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles//jqwidgets/jqxdata.export.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.columnsresize.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.export.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles//jqwidgets/jqxtextarea.js"></script>
+
+  {% load static %}
+  <style>
+    /* Modify the backgorund color */
+    .navbar-custom {
+      background-color: rgb(172, 197, 172);
+    }
+
+    .nav-item .navbar-font .navbar-custom {
+      color: rgb(0, 255, 42);
+    }
+  </style>
+
+  <script type="text/javascript">
+    var serverName = "{{request.scheme}}://{{request.get_host}}";;
+
+    function generateSubmissionGroup() {
+
+      var username = "unknown";
+
+      if (sessionStorage["username"] == undefined) {
+        window.open(serverName + "/GetData/HomePage/", "_self")
+
+      }
+      else {
+        username = sessionStorage["username"];
+      }
+
+
+      $(document).on("click", "#logout", function (event) {
+
+        sessionStorage.clear();
+        window.open(serverName + "/GetData/HomePage/", "_self")
+
+      });
+
+
+      var url = "{{request.scheme}}://{{request.get_host}}/GetData/ResultSubmissionGrid";
+      var source =
+      {
+        datafields: [
+          { name: 'Submission_Group_Id', type: 'string' },
+          { name: 'Submission_Group_Name', type: 'string' },
+          { name: 'Submission_Group_Status', type: 'string' },
+          { name: 'Submission_Test_Type', type: 'string' },
+          { name: 'Machine', type: 'string' },
+          { name: 'Priority', type: 'string' },
+          { name: 'Requester', type: 'string' }
+
+        ],
+        root: "Rows",
+        data: { "username": username },
+        id: 'Submission_Group_Id',
+        datatype: "json",
+
+        url: url
+      };
+      var SubmissionGroupdataAdapter = new $.jqx.dataAdapter(source);
+      $("#SubGroupgrid").jqxGrid(
+        {
+          width: '100%',
+          source: source,
+          autorowheight: true,
+          autoheight: true,
+          theme: 'nvidiatheme',
+          // initrowdetails: initrowdetails,
+          rowdetails: true,
+          sortable: true,
+          columnsresize: false,
+          altrows: true,
+          filterable: true,
+          //selectionmode: 'checkbox',
+          //showfilterrow: true,
+          pageable: true,
+          editable: true,
+          enabletooltips: true,
+          pagermode: 'simple',
+          columnsresize: true,
+          columns: [
+            { text: 'Test suite Id', datafield: 'Submission_Group_Id', editable: false, width: '20%' },
+            { text: 'Test suite name', datafield: 'Submission_Group_Name', editable: true, width: '15%' },
+            { text: 'Test suite group status', datafield: 'Submission_Group_Status', editable: false, width: '15%' },
+            { text: 'Test suite test type', datafield: 'Submission_Test_Type', editable: true, width: '10%' },
+            { text: 'Machine', datafield: 'Machine', editable: false, width: '20%' },
+            { text: 'Priority', datafield: 'Priority', editable: false, width: '10%' },
+            { text: 'Requester', datafield: 'Requester', editable: false, width: '10%', exportable: false },
+
+          ]
+        });
+
+      var url = "{{request.scheme}}://{{request.get_host}}/GetData/ResultGrid/";
+      var dataFields = [
+        { name: 'Submission_Group_Id', type: 'string' },
+        { name: 'Submission_Id', type: 'string' },
+        { name: 'BugId', type: 'string' },
+        { name: 'Job_Status', type: 'string' },
+        { name: 'Template_Id', type: 'string' },
+        { name: 'ResultPath', type: 'string' },
+        { name: 'Job_Id', type: 'string' },
+        { name: 'Sequence', type: 'string' },
+        { name: 'File_Name', type: 'string' },
+        { name: 'Job_Start_Time', type: "date" },
+        { name: 'Job_End_Time', type: "date" },
+        { name: 'Task_Id', type: 'string' },
+        { name: 'Job_Result', type: 'string' }
+      ];
+
+
+      $("#SubGroupgrid").on('rowselect', function (event) {
+        //$("#jqxLoader").jqxLoader({theme: 'energyblue', width: 200, height: 150, autoOpen: true});
+        //    $('#jqxLoader').jqxLoader('open');
+        var submissionGroupId = event.args.row.Submission_Group_Id;
+        var source =
+        {
+          datafields: dataFields,
+          root: "Rows",
+          //record: "Row",
+          id: 'Job_Id',
+          datatype: "json",
+          async: false,
+          data: { "username": username, "submissionGroupId": submissionGroupId },
+          url: url
+        };
+        var SubmissionJobdataAdapter = new $.jqx.dataAdapter(source);
+        SubmissionJobdataAdapter.dataBind();
+        var records = new Array();
+        var length = SubmissionJobdataAdapter.records.length;
+        //  alert(length);
+        for (var i = 0; i < length; i++) {
+          var record = SubmissionJobdataAdapter.records[i];
+          if (record.Submission_Group_Id == submissionGroupId) {
+            records[records.length] = record;
+          }
+        }
+        var dataSource = {
+          datafields: dataFields,
+          localdata: records
+        }
+        var adapter = new $.jqx.dataAdapter(dataSource);
+
+        // update data source.
+        $("#grid").jqxGrid({ source: adapter });
+
+      });
+
+      var linkrenderer = function (row, column, value) {
+        if (value.indexOf('#') != -1) {
+          value = value.substring(0, value.indexOf('#'));
+        }
+        var format = { target: '"_blank"' };
+        var html = $.jqx.dataFormat.formatlink(value, format);
+        return html;
+      }
+      $("#grid").jqxGrid(
+        {
+          width: '100%',
+          autorowheight: true,
+          autoheight: true,
+          // theme: 'energyblue',
+          theme: 'nvidiatheme',
+
+          rowdetails: true,
+          sortable: true,
+          columnsresize: false,
+          altrows: true,
+          filterable: true,
+          //  selectionmode: 'checkbox',
+          // showfilterrow: true,
+          pageable: true,
+          editable: true,
+          enabletooltips: true,
+          pagermode: 'simple',
+          columnsresize: true,
+          columns: [
+            { text: 'TestSuiteId', datafield: 'Submission_Group_Id', editable: false, width: '5%' },
+            { text: 'TestplanId', datafield: 'Submission_Id', editable: false, width: '5%' },
+            { text: 'JobId', datafield: 'Job_Id', editable: true, width: '5%' },
+            { text: 'JobStatus', datafield: 'Job_Status', editable: false, width: '7%' },
+            { text: 'TemplateId', datafield: 'Template_Id', editable: true, width: '5%' },
+            { text: 'TaskId', datafield: 'Task_Id', editable: true, width: '5%', exportable: false },
+            { text: 'Sequence', datafield: 'Sequence', editable: false, width: '10%' },
+            { text: 'Job_Result', datafield: 'Job_Result', editable: false, width: '10%', exportable: false },
+            //{ text: 'ResultPath', datafield: 'ResultPath', editable: false, width: '25%',cellsrenderer: linkrenderer},
+            { text: 'ResultPath', datafield: 'ResultPath', editable: false, width: '25%' },
+            { text: 'BugId', datafield: 'BugId', editable: false, width: '5%', exportable: false },
+            { text: 'Job_Start_Time', datafield: 'Job_Start_Time', editable: false, width: '10%', columntype: "date", cellsformat: "yyyy-MM-dd HH:mm:ss" },
+            { text: 'Job_End_Time', datafield: 'Job_End_Time', editable: false, width: '10%', columntype: "date", cellsformat: "yyyy-MM-dd HH:mm:ss" }
+
+
+          ]
+        });
+
+      $('#jqxLoader').jqxLoader('close');
+      $("#SubGroupgrid").jqxGrid('selectrow', 0);
+
+    }
+
+    $(document).ready(function () {
+
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+
+      const username = urlParams.get('username');
+
+      sessionStorage.removeItem("submission_group_id");
+      generateSubmissionGroup();
+
+
+    });
+  </script>
+
+
+</head>
+
+<body>
+
+  <!-- <div class="page-header" style="font-family:Georgia;">
+     <h1 align="center" style="color: #76b900;">Results</h1>
+      </div> -->
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">
+          <img src="{% static "GetData\img\NVLogo-H-White-Small.png" %}" alt="Logo" style="width:100px;">
+
+        </a>
+        <!-- <h9 class="navbar-brand" style="color: #76b900;">Result </h9> -->
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="{{request.scheme}}://{{request.get_host}}/GetData/HomePage/">Home</a>
+          </li>
+
+          <li><a href="{{request.scheme}}://{{request.get_host}}/GetData/SpiderService/">Configure Tests</a></li>
+          <li class="active"><a href="{{request.scheme}}://{{request.get_host}}/GetData/Result/">View Reports</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+
+          <li><a href="#" id="logout"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div id="SubGroupgrid"></div>
+  <h3 align="center" style="color: #76b900;">Submissions</h1>
+
+    <div id="grid"></div>
+
+    <div id="jqxLoader"></div>
+
+</body>
+
+</html>

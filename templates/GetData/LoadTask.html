@@ -1,0 +1,236 @@
+<html lang="en">
+<head  runat="server" >
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <title>Task view</title>
+
+    <link rel="shortcut icon" type="image/png" href="{% static "GetData\img\favicon.ico" %}"/>
+    <link rel="stylesheet" href="http://hqswqadb02/CommonFiles/jqwidgets/styles/jqx.base.css" type="text/css" />
+    <link rel="stylesheet" href="http://hqswqadb02/CommonFiles/jqwidgets/styles/jqx.light.css" type="text/css" />
+    <link rel="stylesheet" href="http://hqswqadb02/CommonFiles/jqwidgets/styles/jqx.metro.css" type="text/css" />
+    <link rel="stylesheet" href="http://hqswqadb02/CommonFiles/jqwidgets/styles/jqx.bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="http://hqswqadb02/CommonFiles/jqwidgets/styles/jqx.energyblue.css" type="text/css" />
+    <link rel="stylesheet" href="http://hqswqadb02/CommonFiles/jqwidgets/styles/jqx.darkblue.css" type="text/css" />
+    
+    <link rel="stylesheet" href="{% static "GetData\css\nvidiatheme.css" %}" type="text/css" />
+    <link rel="stylesheet" href="{% static "GetData\css\general.css" %}" type="text/css" />
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/JavaScript/jquery-2.1.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+   
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxdata.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxbuttons.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxpanel.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxtree.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxdatatable.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxtreegrid.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxlistbox.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxdropdownbutton.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxdropdownlist.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxmenu.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.pager.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.sort.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.filter.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.columnsresize.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.selection.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxcheckbox.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxexpander.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxbuttongroup.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxwindow.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.edit.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxloader.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxprogressbar.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxinput.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles//jqwidgets/jqxdata.export.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.columnsresize.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.export.js"></script>
+    <script type="text/javascript" src="http://hqswqadb02/CommonFiles//jqwidgets/jqxtextarea.js"></script>
+
+    
+   <script type="text/javascript">
+
+      var serverName = "{{request.scheme}}://{{request.get_host}}";
+      function generateJobTable()
+      {
+          var url = serverName + "/GetData/GetTask/";
+          var Jobsource =
+              {
+                  datafields: [
+                      { name : 'Project_ID', type: 'string' },
+                      { name: 'Task_Id', type: 'string' },
+                      { name: 'TemplateFolderpath', type: 'string' },
+                      { name: 'issuetitle', type: 'string' },
+                      { name: 'EnvironmentInfo', type: 'string' },
+                      { name: 'Feature_Sequence', type: 'string' },
+                      { name: 'jobid', type: 'string' },
+                      { name: 'Template_ID', type: 'string' }
+                  ],
+                  root : "Rows",
+                  id : 'TaskID',
+                  datatype: "json",
+                  url: url
+              };
+
+          var JobdataAdapter = new $.jqx.dataAdapter(Jobsource);
+              $("#Jobgrid").jqxGrid(
+              {
+                  width: '100%',
+                  source: Jobsource,
+                  autorowheight: true,       
+                  autoheight: true,     
+                  theme: 'nvidiatheme',
+                  rowdetails: true,
+                  sortable: true,
+                  columnsresize: false,
+                  altrows: true,
+                  filterable: true,
+                  selectionmode: 'checkbox',
+                  pageable: true,
+                  editable: true,
+                  enabletooltips: true,
+                  pagermode: 'simple',
+                  columnsresize: true,
+                  columns: 
+                  [
+                      { text: 'Project Id', datafield: 'Project_ID', editable: false, width: '5%' },
+                      { text: 'Task Id', datafield: 'Task_Id', editable: false, width: '5%' },
+                      { text: 'Template Id', datafield: 'Template_ID', editable: false, width: '5%' },
+                      { text: 'Title', datafield: 'issuetitle', editable: false, width: '30%',exportable: false },
+                      { text: 'Feature sequence', datafield: 'Feature_Sequence', editable: false, width: '10%' },
+                      { text: 'Environment Info', datafield: 'EnvironmentInfo', editable: false, width: '20%' },
+                      { text: 'TemplateFolderpath', datafield: 'TemplateFolderpath', editable: false, width: '25%'}
+                                
+                  ]
+            });
+            $("#Jobgrid").jqxGrid({ height: '700px' });
+      }
+
+      $(document).ready(function ()
+      {
+
+          generateJobTable();
+
+              
+          $("#insertDB").click(function () {
+
+        $("#jqxLoader").jqxLoader({theme: 'darkblue', width: 200, height: 150, autoOpen: true});
+        $('#jqxLoader').jqxLoader('open');
+        var sel = $('#Jobgrid').jqxGrid('selectedrowindexes');
+
+        if (sel.length > 0) {
+                var arr = new Array();
+                for (u in sel)  {
+                    arr[u] = $('#Jobgrid').jqxGrid('getrowdata', sel[u]);
+                }
+                var data = $('#Jobgrid').jqxGrid('exportdata', 'json', null, true, arr);
+               // alert(data);
+            }
+        else {
+            modal.find('.modal-body p').text("Select Atleast one Template");
+        }
+
+        inputdata = data 
+
+
+        $.ajax({
+            url: '/GetData/BulkUpdate',
+            data: {
+            'json_seq':inputdata,'location':'taskview'
+            },
+            dataType: 'json',
+            traditional:true,
+            contentType: 'application/x-www-form-urlencoded; charset=utf-8',  //Default
+            processData: true,
+            type: "POST",
+            success: function (data)    {
+                returnjson=data;
+                $('#jqxLoader').jqxLoader('close');
+                var modal = $('#alertModal');
+                modal.find('.modal-body p').text("Job submission successful");
+                $('#alertModal').modal("show");
+                window.open(serverName+"/GetData/Result/","_self");
+
+            }
+
+          });
+      });
+
+  });
+    </script>
+</head>
+<body>
+    <div id="jqxLoader"></div>
+           <!-- NAVBAR -->
+          <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>                        
+                </button>
+                <a class="navbar-brand" href="#">
+                  <img src="{% static "GetData\img\NVLogo-H-White-Small.png" %}" alt="Logo" style="width:100px;">
+                </a>
+                <!-- <h9 class="navbar-brand" style="color: #76b900;"> Spider Task Test </h9> -->
+              </div>
+              <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                  <li>
+                      <a href="{{request.scheme}}://{{request.get_host}}/GetData/HomePage/">Home</a>
+                  </li>
+                 
+                  <li><a href="{{request.scheme}}://{{request.get_host}}/GetData/SpiderService/">Configure Test</a></li>
+                  <li><a  href="{{request.scheme}}://{{request.get_host}}/GetData/Result/">Report </a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                 
+                  <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Log out</a></li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+
+    <form id="form1" >
+
+        <div id="Jobgrid"></div>
+        
+        <br\>
+        <br\>
+        <div class="container">
+            <br/>   <br/>      <br/>
+        <input type="button" value="Triger Test" id='insertDB' class="btn btn-primary-nvidia btn-lg" style="float: right;width:250px ;"/>
+
+        
+        </div>
+      
+        
+    </form>
+
+    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Message</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Modal body text goes here.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% load static %}
+  <title>Resubmit</title>
+
+  <link rel="shortcut icon" type="image/png" href="{% static "GetData\img\favicon.ico" %}" />
+  <link rel="stylesheet" href="http://hqswqadb02/CommonFiles/jqwidgets/styles/jqx.base.css" type="text/css" />
+  <link rel="stylesheet" href="http://hqswqadb02/CommonFiles/jqwidgets/styles/jqx.light.css" type="text/css" />
+  <link rel="stylesheet" href="http://hqswqadb02/CommonFiles/jqwidgets/styles/jqx.metro.css" type="text/css" />
+  <link rel="stylesheet" href="http://hqswqadb02/CommonFiles/jqwidgets/styles/jqx.bootstrap.css" type="text/css" />
+  <link rel="stylesheet" href="http://hqswqadb02/CommonFiles/jqwidgets/styles/jqx.energyblue.css" type="text/css" />
+  <link rel="stylesheet" href="http://hqswqadb02/CommonFiles/jqwidgets/styles/jqx.darkblue.css" type="text/css" />
+  <link rel="stylesheet" href="{% static "GetData\css\nvidiatheme.css" %}" type="text/css" />
+  <link rel="stylesheet" href="{% static "GetData\css\general.css" %}" type="text/css" />
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/JavaScript/jquery-2.1.1.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxcore.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxdata.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxbuttons.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxscrollbar.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxpanel.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxtree.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxdatatable.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxtreegrid.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxlistbox.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxdropdownbutton.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxdropdownlist.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxmenu.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.pager.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.sort.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.filter.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.columnsresize.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.selection.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxcheckbox.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxexpander.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxbuttongroup.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxwindow.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.edit.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxloader.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxprogressbar.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxinput.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles//jqwidgets/jqxdata.export.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.columnsresize.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/jqwidgets/jqxgrid.export.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles//jqwidgets/jqxtextarea.js"></script>
+
+  {% load static %}
+  <style>
+    /* Modify the backgorund color */
+    .navbar-custom {
+      background-color: rgb(172, 197, 172);
+    }
+
+    .nav-item .navbar-font .navbar-custom {
+      color: rgb(0, 255, 42);
+    }
+  </style>
+
+  <script type="text/javascript">
+    var serverName = "{{request.scheme}}://{{request.get_host}}";;
+    var jobrecord = [];
+    $(document).ready(function () {
+
+
+      var username = "unknown";
+
+
+      if (sessionStorage["username"] == undefined) {
+        window.open(serverName + "/GetData/HomePage/", "_self")
+
+      }
+      else {
+        username = sessionStorage["username"];
+      }
+
+
+      $(document).on("click", "#logout", function (event) {
+
+        sessionStorage.clear();
+        window.open(serverName + "/GetData/HomePage/", "_self")
+
+      });
+
+      submission_group_id = sessionStorage["submission_group_id"]
+      var url = "{{request.scheme}}://{{request.get_host}}/GetData/ResubmittedSubmission/";
+      var source =
+      {
+        datafields: [
+          { name: 'Submission_Group_Id', type: 'string' },
+          { name: 'Submission_Id', type: 'string' },
+          { name: 'Test_Config_File_Path', type: 'string' },
+          { name: 'Submission_Status', type: 'string' },
+          { name: 'Submission_Time', type: 'date' },
+          { name: 'TemplateFolderpath', type: 'string' }
+          // { name: 'Priority', type: 'string' },
+          // { name: 'Requester', type: 'string' }
+
+        ],
+        root: "Rows",
+        data: { "submission_group_id": submission_group_id },
+        id: 'Submission_Id',
+        datatype: "json",
+
+        url: url
+      };
+      var SubmissionGroupdataAdapter = new $.jqx.dataAdapter(source);
+      $("#SubGroupgrid").jqxGrid(
+        {
+          width: '100%',
+          source: source,
+          autorowheight: true,
+          autoheight: true,
+          theme: 'nvidiatheme',
+          // initrowdetails: initrowdetails,
+          rowdetails: true,
+          sortable: true,
+          columnsresize: false,
+          altrows: true,
+          filterable: true,
+          //selectionmode: 'checkbox',
+          //showfilterrow: true,
+          pageable: true,
+          editable: true,
+          enabletooltips: true,
+          pagermode: 'simple',
+          columnsresize: true,
+          columns: [
+            { text: 'Test suite Id', datafield: 'Submission_Group_Id', editable: false, width: '10%' },
+            { text: 'Test Plan Id', datafield: 'Submission_Id', editable: true, width: '10%' },
+            { text: 'TemplateFolderpath', datafield: 'TemplateFolderpath', editable: false, width: '30%' },
+            { text: 'Test plan status', datafield: 'Submission_Status', editable: true, width: '10%' },
+            { text: 'Test config file path', datafield: 'Test_Config_File_Path', editable: false, width: '20%' },
+            { text: 'Test plan time', datafield: 'Submission_Time', editable: false, width: '20%', columntype: "date", cellsformat: "yyyy-MM-dd HH:mm:ss" },
+            // { text: 'Priority', datafield: 'Priority', editable: false, width: '10%' },
+            // { text: 'Requester', datafield: 'Requester', editable: false, width: '10%', exportable: false },
+
+          ]
+        });
+
+      var joburl = "{{request.scheme}}://{{request.get_host}}/GetData/ResubmittedJobs/";
+      var dataFields = [
+        { name: 'Submission_Id', type: 'string' },
+        { name: 'Job_Status', type: 'string' },
+        { name: 'Template Id', type: 'string' },
+        { name: 'Job_Id', type: 'string' },
+        { name: 'Feature sequence', type: 'string' },
+        { name: 'File_Name', type: 'string' },
+        { name: 'Job_Result', type: 'string' },
+        { name: 'TemplateFolderpath', type: 'string' }
+      ];
+
+      var source =
+      {
+        datafields: dataFields,
+        root: "Rows",
+        //record: "Row",
+        id: 'Job_Id',
+        datatype: "json",
+        async: false,
+        data: { "submission_group_id": submission_group_id },
+        url: joburl
+      };
+      var SubmissionJobdataAdapter = new $.jqx.dataAdapter(source);
+      SubmissionJobdataAdapter.dataBind();
+
+      jobrecord = SubmissionJobdataAdapter.records
+
+      jobrecord = SubmissionJobdataAdapter.records
+
+      $("#SubGroupgrid").on('rowselect', function (event) {
+        //$("#jqxLoader").jqxLoader({theme: 'energyblue', width: 200, height: 150, autoOpen: true});
+        //    $('#jqxLoader').jqxLoader('open');
+        var submissionId = event.args.row.Submission_Id;
+
+        var records = new Array();
+        var length = jobrecord.length;
+        //  alert(length);
+        for (var i = 0; i < length; i++) {
+          var record = jobrecord[i];
+          if (record.Submission_Id == submissionId) {
+            records[records.length] = record;
+          }
+        }
+        var dataSource = {
+          datafields: dataFields,
+          localdata: records
+        }
+        var adapter = new $.jqx.dataAdapter(dataSource);
+
+        // update data source.
+        $("#grid").jqxGrid({ source: adapter });
+
+      });
+
+      var linkrenderer = function (row, column, value) {
+        if (value.indexOf('#') != -1) {
+          value = value.substring(0, value.indexOf('#'));
+        }
+        var format = { target: '"_blank"' };
+        var html = $.jqx.dataFormat.formatlink(value, format);
+        return html;
+      }
+      $("#grid").jqxGrid(
+        {
+          width: '100%',
+          autorowheight: true,
+          autoheight: true,
+          // theme: 'energyblue',
+          theme: 'nvidiatheme',
+
+          rowdetails: true,
+          sortable: true,
+          columnsresize: false,
+          altrows: true,
+          filterable: true,
+          selectionmode: 'checkbox',
+          // showfilterrow: true,
+          pageable: true,
+          editable: true,
+          enabletooltips: true,
+          pagermode: 'simple',
+          columnsresize: true,
+          columns: [
+
+            { text: 'TestplanId', datafield: 'Submission_Id', editable: false, width: '5%' },
+            { text: 'JobId', datafield: 'Job_Id', editable: true, width: '5%' },
+            { text: 'JobStatus', datafield: 'Job_Status', editable: false, width: '10%', exportable: false },
+            { text: 'Template Id', datafield: 'Template Id', editable: true, width: '10%' },
+            { text: 'TemplateFolderpath', datafield: 'TemplateFolderpath', editable: false, width: '35%' },
+            { text: 'Feature sequence', datafield: 'Feature sequence', editable: false, width: '20%' },
+            { text: 'Job_Result', datafield: 'Job_Result', editable: false, width: '15%', exportable: false },
+          ]
+        });
+
+      $('#jqxLoader').jqxLoader('close');
+      $("#SubGroupgrid").jqxGrid('selectrow', -1);
+
+
+    });
+
+    function addrows() {
+      var lsttemp = $(jobrecord).map(function () {
+        return this["Template Id"];
+      }).get()
+      if (lsttemp.length > 0) {
+        sessionStorage.setItem("lsttemp", lsttemp);
+      }
+      window.open(serverName + "/GetData/", "_self");
+    }
+
+
+    function myFunction() {
+      var modal = $('#alertModal');
+      modal.find('.modal-body p').text('Do you want to Delete Rows');
+      $('#alertModal').modal("show");
+
+      var selectedrowindexes = $("#grid").jqxGrid('getselectedrowindexes');
+      var rowscount = $("#grid").jqxGrid('getdatainformation').rowscount;
+
+      while (selectedrowindexes.length > 0) {
+        var selectedrowindex = selectedrowindexes[selectedrowindexes.length - 1];
+        if (selectedrowindex > -1 && selectedrowindex < rowscount) {
+          var id = $("#grid").jqxGrid('getrowid', selectedrowindex);
+          job = $('#grid').jqxGrid('getrowdata', id);
+          $("#grid").jqxGrid('deleterow', id);
+          jobid = parseInt(job.Job_Id)
+          x = jobrecord.findIndex(job => job.Job_Id === jobid)
+          jobrecord.splice(x, 1)
+          //  $("#grid").jqxGrid('deleterow', id);
+        }
+      }
+
+      // document.getElementById("demo").innerHTML = "Hello World";
+    }
+    
+    function Trigger() {
+      var sel = $('#grid').jqxGrid('selectedrowindexes');
+      var inputdata = "";
+
+      if (sel.length == 0) {
+        var modal = $('#alertModal');
+        modal.find('.modal-body p').text("Do you want to submit all Template from grid");
+        $('#alertModal').modal("show");
+        $(document).on("click", "#btnSave", function (event) {
+          inputdata = JSON.stringify(jobrecord);
+
+          ajaxcallBulkUpdate(inputdata);
+
+        });
+
+      }
+      else {
+        var arr = new Array();
+        //  $('#jqxLoader').jqxLoader('open');
+        for (u in sel) {
+          arr[u] = $('#grid').jqxGrid('getrowdata', sel[u]);
+        }
+        var data = $('#grid').jqxGrid('exportdata', 'json', null, true, arr);
+
+        inputdata = data
+
+      }
+
+
+    }
+
+    function ajaxcallBulkUpdate(inputdata) {
+      $("#jqxLoader").jqxLoader({ theme: 'darkblue', width: 200, height: 150, autoOpen: true });
+      $('#jqxLoader').jqxLoader('open');
+      $.ajax({
+        url: '/GetData/BulkUpdate',
+        data: {
+          'json_seq': inputdata, 'location': 'templateview'
+        },
+        dataType: 'json',
+        traditional: true,
+        contentType: 'application/x-www-form-urlencoded; charset=utf-8',  //Default
+        processData: true,
+        type: "POST",
+        success: function (data) {
+          console.log(data);
+
+          returnjson = data;
+
+          var modal = $('#alertModal');
+          modal.find('.modal-body p').text("Job submission successful");
+          $('#alertModal').modal("show");
+          console.log("SiriusJobStatus");
+          window.open(serverName + "/GetData/Result/", "_self");
+          $('#jqxLoader').jqxLoader('close');
+        }
+
+
+
+      });
+
+    }
+    // function Trigger() {
+    //   var sel = $('#grid').jqxGrid('selectedrowindexes');
+
+    //   if (sel.length == 0) {
+    //     var modal = $('#alertModal');
+    //     modal.find('.modal-body p').text("Select Atleast one Template");
+    //     $('#alertModal').modal("show");
+
+    //   }
+    //   else {
+    //     var arr = new Array();
+    //     $('#jqxLoader').jqxLoader('open');
+    //     for (u in sel) {
+    //       arr[u] = $('#grid').jqxGrid('getrowdata', sel[u]);
+    //     }
+    //     var data = $('#grid').jqxGrid('exportdata', 'json', null, true, arr);
+
+    //     inputdata = data
+    //     $.ajax({
+    //       url: '/GetData/BulkUpdate',
+    //       data: {
+    //         'json_seq': inputdata, 'location': 'templateview'
+    //       },
+    //       dataType: 'json',
+    //       traditional: true,
+    //       contentType: 'application/x-www-form-urlencoded; charset=utf-8',  //Default
+    //       processData: true,
+    //       type: "POST",
+    //       success: function (data) {
+    //         console.log(data);
+
+    //         returnjson = data;
+
+    //         var modal = $('#alertModal');
+    //         modal.find('.modal-body p').text("Job submission successful");
+    //         $('#alertModal').modal("show");
+    //         console.log("SiriusJobStatus");
+    //         window.open(serverName + "/GetData/Result/", "_self");
+    //         $('#jqxLoader').jqxLoader('close');
+    //       }
+
+
+
+    //     });
+    //   }
+    // }
+
+
+  //   $("#insertDB").click(function () {
+  //     alert("hi");
+
+  //     var sel = $('#grid').jqxGrid('selectedrowindexes');
+  //     alert(sel.length);
+  //     var selectedrowindexes = $("#grid").jqxGrid('getselectedrowindexes');
+
+  //     var rowscount = $("#grid").jqxGrid('getdatainformation').rowscount;
+  //     alert("rowscount")
+  //     // begin update. Stops the Grid's rendering.
+  //     $("#grid").jqxGrid('beginupdate');
+  //     selectedrowindexes.sort();
+  //     // delete the selected rows by using the 'deleterow' method of jqxGrid.
+  //     for (var m = 0; m < selectedrowindexes.length; m++) {
+  //       var selectedrowindex = selectedrowindexes[selectedrowindexes.length - m - 1];
+  //       if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
+  //         var id = $("#grid").jqxGrid('getrowid', selectedrowindex);
+  //         $("#grid").jqxGrid('deleterow', id);
+  //       }
+  //     }
+
+  //     // var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');
+  //     //           var rowscount = $("#jqxgrid").jqxGrid('getdatainformation').rowscount;
+  //     //           if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
+  //     //               var id = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);
+  //     //               var commit = $("#jqxgrid").jqxGrid('deleterow', id);
+  //     //           }
+  //     // end update. Resume the Grid's rendering.
+  //     $("#grid").jqxGrid('endupdate');
+  //   });
+  // </script>
+
+
+</head>
+
+<body>
+
+  <!-- <div class="page-header" style="font-family:Georgia;">
+     <h1 align="center" style="color: #76b900;">Results</h1>
+      </div> -->
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">
+          <img src="{% static "GetData\img\logo1.png" %}" alt="Logo" style="width:100px;">
+
+        </a>
+        <!-- <h9 class="navbar-brand" style="color: #76b900;">Result </h9> -->
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="{{request.scheme}}://{{request.get_host}}/GetData/HomePage/">Home</a>
+          </li>
+
+          <li><a href="{{request.scheme}}://{{request.get_host}}/GetData/SpiderService/">Configure Test</a></li>
+          <li><a href="{{request.scheme}}://{{request.get_host}}/GetData/Result/">View Report</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+
+          <li><a href="#" id="logout"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div id="SubGroupgrid"></div>
+  <h3 align="center" style="color: #76b900;">Jobs</h1>
+
+    <div id="grid"></div>
+    <br /> <br /> <br />
+    <div class="container">
+
+      <button id='deletebutton' class="btn btn-primary-nvidia btn-lg" onclick="myFunction()"
+      style='margin-right:36px'>Delete row</button>
+    <button id='addbutton' class="btn btn-primary-nvidia btn-lg" onclick="addrows()">Add new templates</button>
+    
+      <button id='insertDB' class="btn btn-primary-nvidia btn-lg" style="float: right;width:250px ;"
+        onclick="Trigger()"> Trigger Test</button>
+    </div>
+
+    <div id="jqxLoader"></div>
+
+    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Message</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Modal body text goes here.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id=btnSave class="btn btn-secondary" data-dismiss="modal">OK</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- <input type="button" value="Delete" id='insertDB' class=" btn btn-primary-nvidia" style="width:250px ;" /> -->
+
+</body>
+
+</html>

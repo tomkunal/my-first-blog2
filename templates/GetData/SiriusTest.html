@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% load static %}
+  <title>Configure Tests</title>
+
+  <link rel="shortcut icon" type="image/png" href="{% static "GetData\img\favicon.ico" %}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://www.w3schools.com/lib/w3.js"></script>
+  <script type="text/javascript" src="http://hqswqadb02/CommonFiles/JavaScript/jquery-2.1.1.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static "GetData\css\general.css" %}" type="text/css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+
+  <style>
+    .w3-theme {
+      color: #fff !important;
+      background-color: #0077be !important
+    }
+
+    .collapsible {
+      background-color: #555;
+      color: white;
+      cursor: pointer;
+      padding: 10px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 18px;
+    }
+
+    .active,
+    .collapsible:hover {
+      background-color: #76b900;
+    }
+
+    .content {
+      padding: 0 10px;
+      display: none;
+      overflow: hidden;
+      background-color: #f1f1f1;
+    }
+
+    i {
+      border: solid black;
+      border-width: 0 3px 3px 0;
+      display: inline-block;
+      padding: 3px;
+    }
+
+    .modal-content {
+      max-height: 95vh;
+      overflow: scroll;
+    }
+
+    /*Sets the maximum height of the modal body to 90% of the screen height*/
+    .modal-body {
+      max-height: 90vh;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">
+          <img src="{% static "GetData\img\NVLogo-H-White-Small.png" %}" alt="Logo" style="width:100px;">
+        </a>
+        <!-- <h9 class="navbar-brand" style="color: #76b900;">Configuration </h9> -->
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="{{request.scheme}}://{{request.get_host}}/GetData/HomePage/">Home</a>
+          </li>
+
+          <li class="active"><a href="{{request.scheme}}://{{request.get_host}}/GetData/SpiderService/">Configure
+              Tests</a></li>
+          <li><a href="{{request.scheme}}://{{request.get_host}}/GetData/Result/">View Reports</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+
+          <li><a href="#" id="logout"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <br />
+
+  <div id="Spider" class="m-15 pb-5">
+    <form method="POST" name="form" id="formid" %}>
+      {% csrf_token %}
+      <div class="panel  panel-success">
+        <!-- <div class="panel-heading">Compulsary Fields</div> -->
+        <!-- Release: <div id='jqxWidget'  name="Release"> </div> -->
+        <table class="table">
+          <tbody>
+            <tr>
+              <td width="33%">
+                <font color="red">*</font>Test Suite Name<input type="text" name="submission_group_name"
+                  class="form-control" title="Unique name for the test suite"
+                  placeholder="Enter a unique test suite name" id="submission_group_name" autofocus=""
+                  value="{{ DataDefault.submission_group_name }}" onchange="validateGroupname()" required /><br />
+              </td>
+              <td width="33%">
+                <font color="red">*</font> Machine Name<input type="text" name="machine" id="machine"
+                  placeholder="Enter a machine name or IP address" class="form-control"
+                  value="{{ DataDefault.machine }}" 
+                  required /><br />
+                <!-- pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$ -->
+              </td>
+              <td width="33%">
+                <!-- Driver Branch: <input type="text" name="DrvBranch" id="DrvBranch" class="form-control"
+                                       value="{{ ConfigDataDefault.DrvBranch }}"/><br/>  -->
+                Driver Branch
+                <select class="form-control " name="DrvBranch" id="DrvBranch" data-live-search="true">
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div id="MainConent">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td width="20%">
+                  <font color="red">*</font> Requester<input type="text" name="requester" id="requester"
+                    class="form-control" placeholder="Enter your NVIDIA username" value="{{ username }}"
+                    required /><br />
+                </td>
+                <td width="20%">
+                  <font color="red">*</font> Send mail (To:)<input type="text" name="sendMailTo" id="sendMailTo"
+                    title="Eg: hlahoti" placeholder="email id" class="form-control" required />
+
+                </td>
+                <td width="20%">
+                  <!-- Priority: <input type="text" id="priority" name="priority" class="form-control" title = "Assign priority for Submissiom 5 as lowest , 1 as Highest priority "placeholder="Priority between 0 to 5" value="5"/><br/> -->
+                  Priority
+                  <select class="form-control" id="priority" name="priority">
+                    <option selected value="5"> 5</option>
+                    <option value="4">4</option>
+                    <option value="3">3</option>
+                    <option value="2">2</option>
+                    <option value="1">1</option>
+                  </select>
+                </td>
+                <td width="200">
+                  Copy results to<input type="text" name="CopyResultTo" id="CopyResultTo" class="form-control"
+                    value="{{ ConfigDataDefault.CopyResultTo }}" /><br />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <button type="button" class="collapsible"> Advanced options
+          <i class="arrow down" style="float: right !important; "></i> </button>
+        <div class="content">
+          <div id="conf_spider_service">
+            <table class="table" style="table-layout:fixed;">
+              <tbody>
+                <tr id="conf_spider_service_adv_0">
+                  <td width="33%">
+                    WBT Sanity Location<input type="text" name="wbt_sanity_location" class="form-control"
+                      placeholder="WBT Sanity location" value="{{ ConfigDataDefault.WBTSanityLocation }}"
+                      required /><br />
+                  </td>
+                  <td width="33%">
+                    WBT Test Name<input type="text" name="wbt_test_name" class="form-control"
+                      placeholder="WBT Test Name" value="{{ ConfigDataDefault.WBTTestName }}" /><br />
+                  </td>
+                  <td width="33%">
+                    WBT Test Command<input type="text" name="wbt_test_command" class="form-control"
+                      placeholder="WBT Test Command" value="{{ ConfigDataDefault.WBTTestCommand }}" /><br />
+                  </td>
+                </tr>
+                <tr id="conf_spider_service_adv_1">
+                  <td width="200">
+                    PlugIn Files<input type="text" name="PlugInFiles" class="form-control" placeholder="Plug-in Files"
+                      value="{{ ConfigDataDefault.PlugInFiles }}" /><br />
+                  </td>
+                  <td width="200">
+                    Config Files<input type="text" name="ConfigFiles" class="form-control" placeholder="Config Files"
+                      value="{{ ConfigDataDefault.ConfigFiles }}" /><br />
+                  </td>
+                  <td width="200">
+                    Staging Path: <input type="text" name="StagingPath" class="form-control" id="staging_path"
+                      disabled="disabled" value="{{ ConfigDataDefault.StagingPath }}" /><br />
+                  </td>
+                </tr>
+
+                <tr id="conf_spider_service_adv_4">
+                  <td>
+                    <label class="container">Update test dll Only
+                      <input type='hidden' value='0' name='UpdateDllOnly'>
+                      <input type="checkbox" name="UpdateDllOnly" value="{{ ConfigDataDefault.UpdateDllOnly }}"
+                        checked="checked" id="uptTestDllOnly" onchange="changeUpdateTestDllOnly()" />
+                      <span class="checkmark"></span>
+                    </label>
+                    <label class="container">Run tests on weekends
+                      <input type='hidden' value='0' name='SatSunRun'>
+                      <input type="checkbox" name="SatSunRun" value="{{ ConfigDataDefault.SatSunRun }}"
+                        id="runTestOnSatSun" onchange="changeRunTstSatSun()" />
+                      <span class="checkmark"></span>
+                    </label>
+                  </td>
+                  <td>
+                    <label class="container">Run tests in loops
+                      <input type='hidden' value='0' name='RunInLoops'>
+                      <input type="checkbox" name="RunInLoops" value="{{ ConfigDataDefault.RunInLoops }}"
+                        id="runTestInLoops" onchange="changeRunTestInLoops()" />
+                      <span class="checkmark"></span>
+                    </label>
+                    <label class="container">Staging bits
+                      <input type='hidden' value='0' name='StagingBits'>
+                      <input type="checkbox" name="StagingBits" id="staging_bits"
+                        value="{{ ConfigDataDefault.StagingBits }}" onchange="changeStagingPath()" />
+                      <span class="checkmark"></span>
+                    </label>
+                  </td>
+                  <td>
+                    <label class="container">Is Directory
+                      <input type='hidden' value='0' name='IsDirectory'>
+                      <input type="checkbox" name="IsDirectory" id="is_directory" checked="checked"
+                        onchange="changeDrvIsDirectory()" />
+                      <span class="checkmark"></span>
+                    </label>
+                    <label class="container">Copy Driver Stack Sanity Folder
+                      <input type='hidden' value='0' name='CopyDST'>
+                      <input type="checkbox" name="CopyDST" value="{{ ConfigDataDefault.CopyDST }}" checked="checked"
+                        id="cpDrvStackSanityFlder" onchange="changeCopyDrvSatckSanityFlder()" />
+                      <span class="checkmark"></span>
+                    </label>
+                  </td>
+                </tr>
+                <tr>
+                  <td width="25%">
+                    Send mail (cc:)<input type="text" name="alias" id="alias" placeholder="Mail alias"
+                      title="Eg: asnair@nvidia.com" value="none" class="form-control" /><br />
+                  </td>
+                  <td width="25%">
+                    Test Owner<input type="text" id="submission_owner" name="submission_owner" class="form-control"
+                      title="Ex: CQI ,DisplayLab etc " placeholder="Team name"><br />
+                  </td>
+                  <td width="40%">
+                    Test Config File Path<input type="text" name="test_config_file_path" id="test_config_file_path"
+                      placeholder="Test config file path"
+                      value="\\netapp-pu\gpu_qa_pu\public\White_Box_Testing\Services\Data\SpiderTest\SpiderBasicConfig\SpiderBasicConfig.conf"
+                      class="form-control" required /><br />
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <br \> <br \>
+        <button type="button" class="collapsible">Driver Details
+          <i class="arrow down" style="float: right !important; "></i> </button>
+        <div class="content">
+          <div id="conf_drv_install">
+            <table class="table" style="table-layout:fixed;">
+              <tbody>
+                <tr>
+                  <td width="33%">
+                    Driver Location
+                    <select class="form-control " name="DrvLocation" onChange="changetextbox();" id="drv_loc"
+                      data-live-search="true" class="form-control" placeholder="Driver folder"
+                      value="{{ DriverInstall.DrvLocation }}">
+                      <option value="Select">Select</option>
+                      <option value="UDA">UDA</option>
+                      <option value="IS">IS</option>
+                      <option value="Custom">Custom</option>
+                    </select>
+                  </td>
+                  <td width="33%">
+                    Driver Share <select name="DrvShare" id="drv_share" class="form-control"
+                      placeholder="Driver share directory" value="{{ DriverInstall.DrvShare }}" data-live-search="true">
+                      <option value="pu-cdot02-sw01">pu-cdot02-sw01</option>
+                      <option value="builds">builds</option>
+                    </select>
+                  </td>
+                  <td width="33%">
+                    Driver Version<input type="text" name="DrvVer" id="drv_ver" class="form-control"
+                      placeholder="Driver version" value="{{ DriverInstall.DrvVer }}" /><br />
+                  </td>
+                </tr>
+                <tr>
+                  <td width="200">
+                    Driver Path<input type="text" name="DrvPath" id="drv_path" class="form-control"
+                      placeholder="Driver path" value="{{ DriverInstall.DrvPath }}" /><br />
+                  </td>
+                  <td width="200">
+                    Driver Branch<input type="text" name="DrvBranchInstall" id="drv_branch" class="form-control"
+                      placeholder="Driver branch" value="{{ DriverInstall.DrvBranchInstall }}" /><br />
+                  </td>
+                  <td width="300">
+                    System Type:<select name="SysType" id="sys_type" class="form-control" placeholder="System type"
+                      value="{{ DriverInstall.SysType }}" data-live-search="true">
+                      <option value="desktop">desktop</option>
+                      <option value="notebook">notebook</option>
+                    </select>
+
+                  </td>
+                </tr>
+                <tr>
+                  <td width="200">
+                    Folder Size<input type="text" name="FolderSize" id="folder_size" class="form-control"
+                      value="{{ DriverInstall.FolderSize }}" /><br />
+                  </td>
+                  <td width="200">
+                    <br />
+
+                    <label class="container">Clean Install
+                      <input type='hidden' value='0' name='CleanInstall'>
+                      <input type="checkbox" name="CleanInstall" id="clean_install"
+                        value="{{ DriverInstall.CleanInstall }}" onchange="changeDrvCleanInstall()" />
+                      <span class="checkmark"></span>
+                    </label>
+                  </td>
+                  <td width="200">
+                    <br />
+                    <label class="container">Execute
+                      <input type='hidden' value='0' name='Execute'>
+                      <input type="checkbox" name="Execute" id="execute" value="{{ DriverInstall.Execute }}"
+                        onchange="changeDrvExecute()" />
+                      <span class="checkmark"></span>
+                    </label>
+                  </td>
+                </tr>
+                <tr width="600">
+                  <td width="100%">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+      <br \>
+      <br \>
+      <div id="GFEdiv">
+        <button type="button" class="collapsible">GFE details :
+          <i class="arrow down" style="float: right !important; "></i> </button>
+        <div class="content">
+          <div id="conf_gfe_install">
+
+            <table class="table" style="table-layout:fixed;">
+              <tbody>
+                <tr>
+                  <td width="33%">
+                    Base Directory: <input type="text" name="BaseDir" class="form-control"
+                      placeholder="Enter Base Directory" value="{{ GFEInstallData.BaseDir }}" required /><br />
+                  </td>
+                  <td width="33%">
+                    Branch: <input type="text" name="Branch" class="form-control" placeholder="Enter Branch"
+                      value="{{ GFEInstallData.Branch }}" /><br />
+                  </td>
+                  <td width="33%">
+                    Version: <input type="text" name="Version" class="form-control" placeholder="Enter Version"
+                      value="{{ GFEInstallData.Version }}" /><br />
+                  </td>
+                </tr>
+                <tr>
+                  <td width="200">
+                    Delay: <input type="number" name="Delay" class="form-control" placeholder="Enter Delay"
+                      value="{{ GFEInstallData.Delay }}" /><br />
+                  </td>
+                  <td width="200">
+                    Install Logs Directory: <input type="text" name="InstallLogsDir" class="form-control"
+                      placeholder="Enter Install Logs Directory" value="{{ GFEInstallData.InstallLogsDir }}" /><br />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label class="container">Respond_To_EULA
+                      <input type='hidden' value='0' name='Respond_To_EULA'>
+                      <input type="checkbox" name="Respond_To_EULA" id="resToEULA"
+                        value="{{ GFEInstallData.Respond_To_EULA }}" onchange="changeResToEULA()" />
+                      <span class="checkmark"></span>
+                    </label>
+                    <label class="container">CleanInstall
+                      <input type='hidden' value='0' name='GFE_CleanInstall'>
+                      <input type="checkbox" name="GFE_CleanInstall" id="GFE_cleanInstall"
+                        value="{{ GFEInstallData.GFE_CleanInstall }}" onchange="changeGFECleanInstall()" />
+                      <span class="checkmark"></span>
+                    </label>
+                    <label class="container">Execute
+                      <input type='hidden' value='0' name='GFE_Execute'>
+                      <input type="checkbox" name="GFE_Execute" value="{{ GFEInstallData.GFE_Execute }}"
+                        id="gfe_Execute" onchange="changeGFEExecute()" />
+                      <span class="checkmark"></span>
+                    </label>
+                  </td>
+                </tr>
+                <tr>
+                  <td width="100%">
+                    <input type="submit" value="Next" class="btn btn-success" />
+
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+      <br \>
+      <br \>
+
+
+      <br />
+
+
+      <br />
+      <div class="container">
+        <div class="row" id="buttondiv">
+          <div class="col-xs-6">
+            <button type="submit" name="btnSelectTemplate" id="btnSelectTemplate" value="btnSelectTemplates"
+              class="btn-lg btn  btn-primary-nvidia" onclick="return validation(this)">Trigger tests from DevTest
+              Templates</button>
+          </div>
+          <div class="col-xs-6">
+            <button type="button" name="btnSelectTask" id="btnSelectTask" value="btnSelectTask"
+              class="btn btn-primary-nvidia btn-lg" style="float: right;"> Trigger tests from Devtest Tasks </button>
+
+          </div>
+
+        </div>
+        <br\>
+          <div class="row" id="Resubmitdiv">
+
+            <button type="submit" name="Resubmit" id="Resubmit" value="Resubmit" class="btn btn-primary-nvidia btn-lg"
+              style="float: right;width:250px ;" onclick="return validation(this)"> Resubmit
+              tests </button>
+
+          </div>
+      </div>
+
+  </div>
+
+  </div>
+
+  <div id="Mosaic" class="test" style="display:none">
+    <h3>CSV Files</h3>
+    <p>Work in progress</p>
+  </div>
+
+  <div id="Grid" class="test" style="display:none">
+    <h3>Single Sequence</h3>
+    <p>Work in progress</p>
+  </div>
+
+  <div class="modal fade" id="alertModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Message</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Modal body text goes here.</p>
+        </div>
+        <div class="modal-footer">
+          <div class="form-group">
+            <!-- <button type="submit" id="btnSaveChanges" name="btnSaveChanges" value="btnSaveChanges"
+              onclick="changeName()" class="btn btn-secondary">Save
+              Changes </button> -->
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="padding:35px 50px;">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4><span class="glyphicon glyphicon-lock"></span> Select Devtest Project</h4>
+        </div>
+        <div class="modal-body" style="padding:40px 50px;">
+          <div class="form-group">
+            <form>
+              Release:
+              <select class="form-control " name="ReleaseValue_ID" id="ReleaseValue_ID" data-live-search="true">
+              </select>
+          </div>
+          <br /><br /><br /> <br /><br /><br />
+          <div class="form-group">
+            <button type="submit" name="btnSelectTaskRelease" id="btnSelectTaskRelease" value="btnSelectTaskRelease"
+              class="btn btn-block btn-primary-nvidia  btn-lg"> Select & Proceed </button>
+            <!-- <button id="submit_btn" class="btn btn-success btn-block" data-dismiss="modal"><span class="glyphicon glyphicon-off"></span> Login</button> -->
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <!-- <button  class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button> -->
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+  </form>
+</body>
+
+{% csrf_token %}
+<script type="text/javascript">
+  var validategroup = false;
+  var resubmitChange = false;
+  var serverName = "{{request.scheme}}://{{request.get_host}}";;
+
+  function changetextbox() {
+    if (document.getElementById("drv_loc").value === "UDA") {
+      document.getElementById("drv_path").disabled = 'true';
+      $('#drv_path').val('none');
+      if (document.getElementById("drv_ver").disabled === true)
+      {
+        $('#drv_ver').val('none');
+        document.getElementById("drv_ver").disabled = '';
+      }
+    }
+    else if (document.getElementById("drv_loc").value === "IS") {
+      document.getElementById("drv_ver").disabled = 'true';
+      document.getElementById("drv_path").disabled = 'true';
+      $('#drv_ver').val('none');
+      $('#drv_path').val('none');
+    }
+    // else if (document.getElementById("drv_loc").value === "Custom") {
+    //     document.getElementById("drv_ver").disable='true';
+    //     document.getElementById("drv_path").disable='true';
+    // }
+    else {
+      document.getElementById("drv_path").disabled = '';
+      document.getElementById("drv_ver").disabled = '';
+    }
+  }
+
+  $(document).on("click", "#logout", function (event) {
+
+    $.confirm({
+      title: 'Confirm!',
+      content: 'Simple confirm!',
+      buttons: {
+        confirm: function () {
+          $.alert('Confirmed!');
+        },
+        cancel: function () {
+          $.alert('Canceled!');
+        },
+        somethingElse: {
+          text: 'Something else',
+          btnClass: 'btn-blue',
+          keys: ['enter', 'shift'],
+          action: function () {
+            $.alert('Something else?');
+          }
+        }
+      }
+    });
+
+    sessionStorage.clear();
+    window.open(serverName + "/GetData/HomePage/", "_self")
+
+  });
+  function validateGroupname() {
+    var submission_group_name = document.getElementById("submission_group_name").value; //#$(this.target).val();
+
+    $.ajax({
+      url: '/GetData/ValidateGroupname/',
+      data: {
+        'submission_group_name': submission_group_name
+      },
+      dataType: 'json',
+      success: function (data) {
+        if (data.is_taken) {
+          
+          $.confirm({
+            title: 'Confirm!',
+            content: "This test suite name already exist.Do you want to rename older test suite name  " + submission_group_name,
+            buttons: {
+              Yes: function () {
+
+                var new_submission = submission_group_name + new Date().toISOString();
+
+                $.ajax({
+                  url: '/GetData/RenameGroupname/',
+                  data: {
+                    'submission_group_name': submission_group_name,
+                    'new_submission': new_submission
+                  },
+                  dataType: 'json',
+                  success: function (data) {
+                    $.alert(data.is_taken);
+                  }
+
+                });
+              },
+              No: function () {
+                $.alert('Change the value of submission_group_name!');
+                document.getElementById("submission_group_name").value = "";
+              },
+            }
+          });
+
+
+          validategroup = false;
+
+        }
+        else {
+          validategroup = true;
+        }
+
+      }
+    });
+  }
+
+
+
+
+  $(document).ready(function () {
+
+    var username = "unknown";
+
+    if (sessionStorage["username"] == undefined) {
+      window.open(serverName + "/GetData/HomePage/", "_self")
+
+    }
+    else {
+      username = sessionStorage["username"];
+      document.getElementById("requester").value = sessionStorage["username"];
+      document.getElementById("sendMailTo").value = sessionStorage["username"];
+    }
+    var buttondiv = document.getElementById("buttondiv");
+    var resubmitdiv = document.getElementById("Resubmitdiv");
+    if (sessionStorage["submission_group_id"] != undefined) {
+
+      buttondiv.style.display = "none";
+      resubmitdiv.style.display = "block";
+
+    }
+
+    if (sessionStorage["submission_group_id"] == undefined) {
+      buttondiv.style.display = "block";
+      resubmitdiv.style.display = "none";
+    }
+    var x = document.getElementById("GFEdiv");
+    //  releaseDropDown();
+    x.style.display = "none";
+    var a = "{{ConfigDataDefault.lstDrvBranch}}";
+    var drvbranch = "{{ConfigDataDefault.DrvBranch}}";
+    var parser = new DOMParser;
+    var dom = parser.parseFromString(
+      '<!doctype html><body>' + a,
+      'text/html');
+    var decodedString = dom.body.textContent;
+
+    decodedString = JSON.parse("[" + decodedString + "]");
+    document.getElementById('DrvBranch').options.length = 0;
+
+    decodedString[0].forEach(function (val, idx) {
+      $('#DrvBranch').append($('<option>', {
+        value: val,
+        text: val
+      }));
+    });
+    $('#DrvBranch').val(drvbranch);
+    
+    $('#drv_loc').val('{{ DriverInstall.DrvLocation }}');
+    $('#drv_share').val('{{ DriverInstall.DrvShare }}');
+    $('#sys_type').val('{{ DriverInstall.SysType }}');
+
+
+    $('.selectpicker').selectpicker('refresh');
+
+    refreshFolders();
+
+  });
+
+  function validation(button) {
+
+    var id = button.id
+    var submissiongrpname = '{{ DataDefault.submission_group_name }}';
+    
+    if ($('#submission_group_name').val() == "") {
+      //  alert("Enter Unique TestSuite name !!")
+      var modal = $('#alertModal');
+      modal.find('.modal-body p').text("Enter unique testsuite name");
+
+      $('#alertModal').modal("show");
+    }
+    else if ($('#machine').val() == "") {
+      // alert("Enter Machine name !!")
+      var modal = $('#alertModal');
+      modal.find('.modal-body p').text("Enter machine name");
+      $('#alertModal').modal("show");
+    }
+    else if ($('#CopyResultTo').val() == "\\\\netapp-pu02\\gpu_qa_pu\\public\\SpiderResultsV2") {
+      var modal = $('#alertModal');
+      modal.find('.modal-body p').html("Please add result to certain folder <br /> Eg: \\\\netapp-pu02\\gpu_qa_pu\\public\\SpiderResultsV2\\SCMTesting");
+
+      $('#alertModal').modal("show");
+    }
+    else if (id == "Resubmit") {
+
+      var submission_group_name = $('#submission_group_name').val()
+      if (submissiongrpname == $('#submission_group_name').val()) {
+
+       var resubmit = false;
+        var res = submissiongrpname.replace(/\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/g, '');
+        submission_group_name = res + new Date().toISOString()
+        $.confirm({
+          title: 'Confirm!',
+          content: "This Submission  name will be rename as " + submission_group_name,
+          buttons: {
+            Yes: function () {
+
+              // $.alert(submission_group_name);
+              document.getElementById("submission_group_name").value = submission_group_name;
+              resubmit = true;
+            },
+            No: function () {
+              $.alert('Change the value of submission_group_name!');
+              document.getElementById("submission_group_name").value = "";
+              resubmit = false;
+            },
+          }
+        });
+
+        return resubmit;
+
+      }
+      else {
+
+        return true
+      }
+
+    }
+    else {
+
+      return true
+    }
+    return false
+  }
+
+
+  function changeName() {
+    
+
+    if (submissiongrpname == $('#submission_group_name').val()) {
+      submission_group_name = $('#submission_group_name').val() + "_" + new Date().toISOString();
+
+      document.getElementById("submission_group_name").value = submission_group_name;
+    }
+
+  }
+
+  document.getElementById("btnSelectTask").addEventListener("click", function () {
+
+    if ($('#submission_group_name').val() == "") {
+      //  alert("Enter Unique TestSuite name !!")
+      var modal = $('#alertModal');
+      modal.find('.modal-body p').text("Enter unique testsuite name");
+
+      $('#alertModal').modal("show");
+    }
+    else if ($('#machine').val() == "") {
+      // alert("Enter Machine name !!")
+      var modal = $('#alertModal');
+      modal.find('.modal-body p').text("Enter machine name");
+      $('#alertModal').modal("show");
+    }
+    else if ($('#CopyResultTo').val() == "\\\\netapp-pu02\\gpu_qa_pu\\public\\SpiderResultsV2") {
+      var modal = $('#alertModal');
+      modal.find('.modal-body p').html("Please add result to certain folder <br /> Eg: \\\\netapp-pu02\\gpu_qa_pu\\public\\SpiderResultsV2\\SCMTesting");
+
+      $('#alertModal').modal("show");
+    }
+    else {
+      $('#myModal').modal();
+    }
+  });
+  var coll = document.getElementsByClassName("collapsible");
+  var i;
+
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function () {
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+      if (content.style.display === "block") {
+        content.style.display = "none";
+      } else {
+        content.style.display = "block";
+      }
+    });
+  }
+
+  function openTest(evt, testName) {
+    var i, x, tablinks;
+    x = document.getElementsByClassName("test");
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < x.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" w3-light-grey", "");
+    }
+    document.getElementById(testName).style.display = "block";
+    evt.currentTarget.className += " w3-light-grey";
+  }
+
+  function changeStagingPath() {
+    var staging_bits = document.getElementById("staging_bits");
+    console.log(staging_bits.checked);
+    document.getElementById('staging_path').disabled = !staging_bits.checked;
+
+    if (staging_bits.checked) {
+      $("#staging_bits").val(1);
+    } else {
+      $("#staging_bits").val(0);
+    }
+  }
+
+  function changeUpdateTestDllOnly() {
+    var valToSet = 0;
+    if ($('#uptTestDllOnly').prop('checked')) {
+      valToSet = 1;
+    }
+
+    $('#uptTestDllOnly').val(valToSet);
+  }
+
+  function changeRunTstSatSun() {
+    var valToSet = 0;
+    if ($('#runTestOnSatSun').prop('checked')) {
+      valToSet = 1;
+    }
+    $('#runTestOnSatSun').val(valToSet);
+  }
+
+  function changeRunTestInLoops() {
+    var valToSet = 0;
+    if ($('#runTestInLoops').prop('checked')) {
+      valToSet = 1;
+    }
+    $('#runTestInLoops').val(valToSet);
+  }
+
+
+  function changeCopyDrvSatckSanityFlder() {
+    var valToSet = 0;
+    if ($('#cpDrvStackSanityFlder').prop('checked')) {
+      valToSet = 1;
+    }
+    $('#cpDrvStackSanityFlder').val(valToSet);
+  }
+
+  function changeDrvIsDirectory() {
+    var valToSet = 0;
+    if ($('#is_directory').prop('checked')) {
+      valToSet = 1;
+    }
+    $('#is_directory').val(valToSet);
+    console.log("No Effect in backend... not used...");
+  }
+
+  function changeDrvCleanInstall() {
+    var valToSet = 0;
+    if ($('#clean_install').prop('checked')) {
+      valToSet = 1;
+    }
+    $('#clean_install').val(valToSet);
+  }
+
+
+  function changeDrvExecute() {
+    var valToSet = 0;
+    if ($('#execute').prop('checked')) {
+      valToSet = 1;
+    }
+    $('#execute').val(valToSet);
+  }
+
+  function changeResToEULA() {
+    var valToSet = 0;
+    if ($('#resToEULA').prop('checked')) {
+      valToSet = 1;
+    }
+    $('#resToEULA').val(valToSet);
+  }
+
+  function changeGFECleanInstall() {
+    var valToSet = 0;
+    if ($('#GFE_cleanInstall').prop('checked')) {
+      valToSet = 1;
+    }
+    $('#GFE_cleanInstall').val(valToSet);
+  }
+
+  function changeGFEExecute() {
+    var valToSet = 0;
+    if ($('#gfe_Execute').prop('checked')) {
+      valToSet = 1;
+    }
+    $('#gfe_Execute').val(valToSet);
+  }
+
+
+  function ValidateIPaddress(ipaddress) {
+    // alert(ipaddress);
+    Valid952HostnameRegex = "^(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$";
+    if (Valid952HostnameRegex.test(ipaddress)) {
+
+      // alert("IP address!");
+      return (true);
+    }
+    //  alert("You have entered an invalid IP address!");
+    return (false);
+  }
+
+  function refreshFolders() {
+    console.log("refreshFolders");
+    gettemp = "http://hqswqadb02/DevtestDBAPI/api/Project/GetLatest20Projects?templateProjectId=1072";
+    document.getElementById('ReleaseValue_ID').options.length = 0;
+    $('#ReleaseValue_ID').append('<option value="all" selected="selected">All</option>');
+    $('#ReleaseValue_ID').append('<option value="1120">Sandbox</option>');
+    $('#ReleaseValue_ID').append('<option value="1124">GPU Work Project for Misc.</option>');
+    $('#ReleaseValue_ID').append('<option value="1270">GPU Work Project for CQI/PHW.</option>');
+
+    $.ajax({
+      url: gettemp,
+      dataType: 'json',
+      success: function (data) {
+        data.forEach(function (val, idx) {
+          $('#ReleaseValue_ID').append($('<option>', {
+            value: val.ProjectId,
+            text: val.ProjectName
+          }));
+        });
+      }
+    });
+
+    $('.selectpicker').selectpicker('refresh');
+
+
+
+
+  }
+
+</script>
+
+</html>

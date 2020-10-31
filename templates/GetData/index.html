@@ -1,0 +1,584 @@
+<h1>Lucky 7</h1>
+<h2>By Kunal:-)</h2>
+<p id="text-area">Welcome to Lucky 7.!</p>
+
+<head>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+</head>
+<button id="rules" class="button button1">Read Rules Here</button>
+<div id="frame">
+  <div id="pot">45
+  </div>
+  <div class="dice dice1" id="rollDice1">
+         <div class="dot" id="a">
+    </div>
+    <div class="dot" id="b">
+    </div>
+    <div class="dot" id="c">
+    </div>
+    <div class="dot" id="d">
+    </div>
+    <div class="dot" id="e">
+    </div>
+    <div class="dot" id="f">
+    </div>
+    <div class="dot" id="g">
+    </div>
+    <div class="dot" id="h">
+    </div>
+    <div class="dot" id="i">
+    </div>
+  </div>
+  <div class="dice dice2" id="rollDice2">
+    <div class="dot" id="a2">
+    </div>
+    <div class="dot" id="b2">
+    </div>
+    <div class="dot" id="c2">
+    </div>
+    <div class="dot" id="d2">
+    </div>
+    <div class="dot" id="e2">
+    </div>
+    <div class="dot" id="f2">
+    </div>
+    <div class="dot" id="g2">
+    </div>
+    <div class="dot" id="h2">
+    </div>
+    <div class="dot" id="i2">
+    </div>
+  </div>
+  <div id="radio-group">
+    <input type="radio" id="option-one" name="selector" onclick="myRadioValue(this.value)" value="<7">
+    <label for="option-one">
+      <7< /label>
+        <input type="radio" id="option-two" name="selector" onclick="myRadioValue(this.value)" value="=7"
+          checked="checked">
+        <label for="option-two">=7</label>
+        <input type="radio" id="option-three" name="selector" onclick="myRadioValue(this.value)" value=">7">
+        <label for="option-three">>7</label>
+  </div>
+  <input type="button" value="Get Feature Name" id='knowFeature' class="btn btn-primary-nvidia"
+    style="width:250px ;" /><br />
+  <button id="button">Roll</button>
+  <div class="slide">
+    <input type="range" min="0" max="10" value="5" class="slider" id="myRange">
+    <p class="para">Bid Value: <span id="demo" style="white-space:nowrap"></span></p>
+    <style>
+      #frame {
+        position: absolute;
+        height: 400px;
+        width: 400px;
+        top: 50%;
+        left: 50%;
+        margin-top: -200px;
+        margin-left: -200px;
+        background: lightblue;
+      }
+
+      #pot {
+        position: absolute;
+        height: 70px;
+        width: 70px;
+        margin-top: 15px;
+        margin-left: 312px;
+        border-radius: 20%;
+        box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.3);
+        background: lightblue;
+        border: 3px solid #1D2951;
+
+        font-family: cursive;
+        font-size: 2.5em;
+        /* 40px/16=2.5em */
+        font-style: italic;
+        font-weight: bold;
+        text-align: center;
+      }
+
+      #radio-group {
+        position: absolute;
+        border: solid 3px black;
+        display: inline-block;
+        margin: 20px;
+        border-radius: 10px;
+        overflow: hidden;
+        bottom: 75px;
+        left: 100px;
+      }
+
+      input[type=radio] {
+        position: absolute;
+        display: none;
+      }
+
+
+      label {
+        color: black;
+        display: inline-block;
+        cursor: pointer;
+        font-weight: bold;
+        padding: 5px 20px;
+        margin-right: -5px;
+      }
+
+      input[type=radio]:checked+label {
+        border-left-color: black;
+        background: white;
+      }
+
+      label+input[type=radio]+label {
+        border-left: solid 3px;
+      }
+
+      #button {
+        position: absolute;
+        bottom: 90px;
+        right: 30px;
+        background-color: #1D2951;
+        border-radius: 10px;
+        border: none;
+        color: white;
+        padding: 10px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.3);
+        outline: none;
+      }
+
+      /*#button2 {
+      position: absolute;
+      background-color: #1D2951;
+      border-radius: 5px;
+      height: 50px;
+      width: 100px;
+      border: none;
+      color: white;
+      padding: 10px 10px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      box-shadow: 1px 2px 10px 0px rgba(0,0,0,0.3);
+      outline:none;
+      display: none;
+      top:50%;
+      margin-top:-25px;
+      left:50%;
+      margin-left:-50px;
+  }
+  */
+
+      .slider {
+        position: absolute;
+        -webkit-appearance: none;
+        width: 200px;
+        height: 15px;
+        border-radius: 5px;
+        background: lightblue;
+        border-color: red;
+        outline: none;
+        opacity: 1;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+        bottom: 45px;
+        left: 50%;
+        margin-left: -100px;
+        box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.3);
+      }
+
+      .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: white;
+        opacity: 0.8;
+        cursor: pointer;
+      }
+
+      .slider::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: white;
+        opacity: 0.8;
+        cursor: pointer;
+      }
+
+      .slider:hover {
+        opacity: 1;
+      }
+
+      .para {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+      }
+
+      .dice {
+        position: absolute;
+        height: 101px;
+        width: 101px;
+        box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        outline: none;
+        background: #ffffff;
+      }
+
+      .dice1 {
+        top: 120px;
+        left: 20%;
+      }
+
+      .dice2 {
+        top: 120px;
+        right: 20%;
+      }
+
+
+
+      .dot {
+        position: absolute;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        background: #262626;
+        display: none;
+      }
+
+      #a {
+        top: 14px;
+        left: 14px;
+      }
+
+      #b {
+        top: 14px;
+        left: 40.5px;
+      }
+
+      #c {
+        top: 14px;
+        right: 14px;
+      }
+
+      #d {
+        top: 40.5px;
+        left: 14px;
+      }
+
+      #e {
+        top: 40.5px;
+        left: 40.5px;
+        display: block;
+      }
+
+      #f {
+        top: 40.5px;
+        right: 14px;
+      }
+
+      #g {
+        bottom: 14px;
+        left: 14px;
+      }
+
+      #h {
+        bottom: 14px;
+        left: 40.5px;
+      }
+
+      #i {
+        bottom: 14px;
+        right: 14px;
+      }
+
+      #a2 {
+        top: 14px;
+        left: 14px;
+      }
+
+      #b2 {
+        top: 14px;
+        left: 40.5px;
+      }
+
+      #c2 {
+        top: 14px;
+        right: 14px;
+        display: block;
+      }
+
+      #d2 {
+        top: 40.5px;
+        left: 14px;
+      }
+
+      #e2 {
+        top: 40.5px;
+        left: 40.5px;
+      }
+
+      #f2 {
+        top: 40.5px;
+        right: 14px;
+      }
+
+      #g2 {
+        bottom: 14px;
+        left: 14px;
+        display: block;
+      }
+
+      #h2 {
+        bottom: 14px;
+        left: 40.5px;
+      }
+
+      #i2 {
+        bottom: 14px;
+        right: 14px;
+      }
+
+      .button {
+        position: absolute;
+        left: 2px;
+        border: none;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        padding: 10px 10px;
+        font size: 10px;
+        display: inline-block;
+        cursor: pointer;
+        background-color: white;
+        color: black;
+        border: 2px solid #800000;
+        box-shadow: 1px 2px 5px 0px #800000;
+        border-radius: 7px;
+      }
+
+      .button1:hover {
+        background-color: white;
+        color: black;
+        border: 4px solid #800000;
+        outline: none;
+      }
+
+      #text-area {
+        font-family: cursive;
+        font-size: 1.2em;
+        /* 40px/16=2.5em */
+        font-style: italic;
+      }
+    </style>
+
+    <body>
+      <!-- <script type="text/javascript" src="lucky7java.js">
+
+</script> -->
+      <script type="text/javascript">
+
+        var diceValue1,
+          diceValue2;
+        var diceValue,
+          potValue,
+          radioValue = '=7',
+          bidValue = 15,
+          premium = 10;
+
+        function myRadioValue(dice) {
+          alert("hello");
+          radioValue = dice;
+          var d = new Date();
+
+          $.ajax({
+            url: '/GetData/time',
+            data: {
+              'featurePart': d
+            },
+            traditional: true,
+            dataType: 'json',
+            success: function (data) {
+              returnjson = data;
+              alert(data);
+            }
+
+          });
+
+
+          return;
+
+        }
+        
+        $("#knowFeature").click(function () {
+          alert("hello");
+          
+          var d = new Date();
+
+          $.ajax({
+            url: '/GetData/time',
+            data: {
+              'featurePart': d
+            },
+            traditional: true,
+            dataType: 'json',
+            success: function (data) {
+              returnjson = data;
+              alert(data);
+            }
+
+          });
+
+
+      });
+      
+
+
+          //slider code
+          var slider = document.getElementById("myRange");
+          var output = document.getElementById("demo");
+          /*output.innerHTML = slider.value;
+          slider.oninput = function() {
+            output.innerHTML = this.value;
+            bidValue = parseInt(this.value);
+          }*/
+          //slider code
+
+
+          function myFunction() {
+            let a = arguments[0],
+              b = arguments[1],
+              c = arguments[2],
+              d = arguments[3],
+              e = arguments[4],
+              f = arguments[5],
+              g = arguments[6],
+              h = arguments[7],
+              i = arguments[8],
+              value = arguments[9];
+
+            document.getElementById(a).style.display = 'none';
+            document.getElementById(b).style.display = 'none';
+            document.getElementById(c).style.display = 'none';
+            document.getElementById(d).style.display = 'none';
+            document.getElementById(e).style.display = 'none';
+            document.getElementById(f).style.display = 'none';
+            document.getElementById(g).style.display = 'none';
+            document.getElementById(h).style.display = 'none';
+            document.getElementById(i).style.display = 'none';
+
+            switch (value) {
+              case 1:
+                {
+                  document.getElementById(e).style.display = 'block';
+                  break;
+                }
+              case 2:
+                {
+                  document.getElementById(g).style.display = 'block';
+                  document.getElementById(c).style.display = 'block';
+                  break;
+                }
+              case 3:
+                {
+                  document.getElementById(g).style.display = 'block';
+                  document.getElementById(e).style.display = 'block';
+                  document.getElementById(c).style.display = 'block';
+                  break;
+                }
+              case 4:
+                {
+                  document.getElementById(a).style.display = 'block';
+                  document.getElementById(c).style.display = 'block';
+                  document.getElementById(g).style.display = 'block';
+                  document.getElementById(i).style.display = 'block';
+                  break;
+                }
+              case 5:
+                {
+                  document.getElementById(a).style.display = 'block';
+                  document.getElementById(c).style.display = 'block';
+                  document.getElementById(e).style.display = 'block';
+                  document.getElementById(g).style.display = 'block';
+                  document.getElementById(i).style.display = 'block';
+                  break;
+                }
+              case 6:
+                {
+                  document.getElementById(a).style.display = 'block';
+                  document.getElementById(c).style.display = 'block';
+                  document.getElementById(d).style.display = 'block';
+                  document.getElementById(f).style.display = 'block';
+                  document.getElementById(g).style.display = 'block';
+                  document.getElementById(i).style.display = 'block';
+                  break;
+                }
+            }
+            return;
+          }
+
+          //rules
+          rules.addEventListener('click', function () {
+            document.getElementById('text-area').innerHTML = "Put the bid, and" + "<br>" + "select one of" + "<br>" + "<7 , =7 or >7 and," + "<br>" + "roll the dice." + "<br>" + "Have Fun!";
+            document.getElementById('rules').style.display = 'none';
+
+          });
+          //rules
+
+          button.addEventListener('click', function () {
+            potValue -= 7;
+            diceValue1 = Math.floor(Math.random() * 6) + 1;
+            diceValue2 = Math.floor(Math.random() * 6) + 1;
+            myFunction('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', diceValue1);
+            myFunction('a2', 'b2', 'c2', 'd2', 'e2', 'f2', 'g2', 'h2', 'i2', diceValue2);
+            diceValue = diceValue1 + diceValue2;
+            potValue = parseInt(document.getElementById("pot").innerHTML);
+            if (radioValue === '>7') {
+              if (diceValue > 7) {
+                potValue += bidValue;
+                potValue -= premium;
+              }
+              else {
+                potValue -= 0;
+                potValue -= premium;
+              }
+            }
+
+            else if (radioValue === '<7') {
+              if (diceValue < 7) {
+                potValue += bidValue;
+                potValue -= premium;
+              }
+              else {
+                potValue -= 0;
+                potValue -= premium;
+              }
+            }
+            else {
+              if (diceValue == 7) {
+                potValue = 2 * bidValue + potValue;
+                potValue -= premium;
+              }
+              else {
+                potValue -= 0;
+                potValue -= premium;
+              }
+            }
+            if (potValue < 0) { alert("game over!!! not enough credit left if you want to play again refresh(f5)"); }
+            document.getElementById("pot").innerHTML = potValue;
+
+          });
+
+
+
+      </script>
+    </body>
+
+  </div>
+  <!--   <button id="button2">Restart</button> -->
+
+</div>
