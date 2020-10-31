@@ -25,7 +25,7 @@ SECRET_KEY = 'j*h1+uhw&$b$0lb5r9=ivc_24klf8-9=f35y#9&64)&ti1)ug-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['hqnvwbtd01','localhost','hlahoti-lt1', '127.0.0.1']
+ALLOWED_HOSTS = ['hqnvwbtd01','localhost','hlahoti-lt1', '127.0.0.1','kunaltom.pythonanywhere.com']
 
 # DJANGO_TABLES2_TEMPLATE = 'django_tables2/bootstrap.html'
 # Application definition
